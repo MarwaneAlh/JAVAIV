@@ -1,0 +1,82 @@
+Analyse textuelle projet JAVA :
+
+Parking de 20 place 
+
+-Place la plus petite donne a un nouvelle utilisateur
+-Forfait journée place de 1:00 a 23h00 max si apres la fourriere
+-Numeroté de 0 a 19
+Parking accepte : moto,voitures,camionette
+prix : 10 euro -> moto
+	20 euro ->voiture
+	30 euro ->caamionette
+Systeme de reduction :
+Lundi prix normal
+Mardi 50% -> moto
+Mercredi 25% pour ceux qui ont un p dans la plaque
+Jeudi prix normal
+Vendredi 50% camionette
+samedi si date paire 50 % sinon normal
+Dimanche normal
+
+Ticket de jeux : 
+Ticket standar ->code promo et -5 % ou -10 % au hasard
+Ticket silver ->code promo et -10% ou -15% au hasard § 2symbole soit O,X,P au hasard
+si les deux symboles sont les memes alors la valeur double -> 10%->20%
+Ticket gold ->code promo et 20% ou 40% plus grille 3x3 avaec symbole avec les lettres de PARKHELB mélangé
+si une ligne ou colonne identitique ben double la valeur ->20%->40%
+Tout les tickets créer sont stocket dans fichier texte au format :
+Code promo est unique généerer au hasard
+repertoire DDMMYY 
+nom de fichier texte 
+plaque d'immatriculation + type de ticket :> _std ,_sil _gol
+
+Plaque d'immatriculation : une lettre et un chiffre
+
+Affichage graphique :
+Le code couleur est le suivant :
+- Vert : la place est libre
+- Bleu : la place est occupée par une moto
+- Rouge : la place est occupée par une voiture
+- Mauve : la place est occupée par une camionnette
+
+Sur les carréés ont voie le nom de la plaque
+	Clique sur les carrées pour editer la place ou editer la plaque ou encore liberer emplacement
+
+Le designe contient le numero d'emlpacement
+le statut : occupé ou libre
+immatriculation
+Total a payer
+et un bouton liberer emplacement
+
+3 objet = 
+
+Une voiture 
+Type de vehicule,une immatriculation,
+
+Objet ticket herite de voiture :
+
+Date,
+Numero de place,
+type de vehicule,
+immatriculation,
+prixe de base,
+reduction,
+total a payer,
+code promo,
+ticket type
+Jeu de caractere,
+
+
+Objet place de parking:
+Status,
+Type de Vehicule,
+Immatriculation,
+Total a payer,
+Nom
+
+Objet parking :
+
+Place de parking,
+Creation de liste d'objet place de parking
+
+
