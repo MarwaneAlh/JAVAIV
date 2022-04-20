@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package helbpark;
+package view;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  *
  * @author Marwa
  */
-public class HelbPark extends Application {
+public class main extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -33,6 +33,5 @@ public class HelbPark extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
     
 }

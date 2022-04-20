@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package helbpark;
+package view;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,7 +23,7 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
+        System.out.println("Salut!");
         label.setText("Hello World!");
     }
     
