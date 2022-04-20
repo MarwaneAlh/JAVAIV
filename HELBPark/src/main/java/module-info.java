@@ -3,5 +3,5 @@ module view.helbpark {
     requires javafx.fxml;
 
     opens view.helbpark to javafx.fxml;
-    exports view.helbpark;
+    exports helbpark.view;
 }

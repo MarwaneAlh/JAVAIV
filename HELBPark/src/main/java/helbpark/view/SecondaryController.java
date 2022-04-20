@@ -1,4 +1,4 @@
-package view.helbpark;
+package helbpark.view;
 
 import java.io.IOException;
 import javafx.fxml.FXML;

@@ -1,4 +1,4 @@
-package view.helbpark;
+package helbpark.view;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
