@@ -12,9 +12,9 @@ package model;
 public class Vehicule {
     
     private TypeOfVehicule _type;
-    private int numberplate;
+    private String numberplate;
 
-    public Vehicule(TypeOfVehicule _type, int numberplate) {
+    public Vehicule(TypeOfVehicule _type, String numberplate) {
         this._type = _type;
         this.numberplate = numberplate;
     }
@@ -23,7 +23,7 @@ public class Vehicule {
         return _type;
     }
 
-    public int getNumberplate() {
+    public String getNumberplate() {
         return numberplate;
     }
 
@@ -31,7 +31,7 @@ public class Vehicule {
         this._type = _type;
     }
 
-    public void setNumberplate(int numberplate) {
+    public void setNumberplate(String numberplate) {
         this.numberplate = numberplate;
     }
     

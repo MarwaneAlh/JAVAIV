@@ -8,24 +8,19 @@ package view;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.Parking;
-import sun.plugin.javascript.navig.Anchor;
 
 /**
  *
@@ -51,7 +46,7 @@ public class FXMLDocumentController implements Initializable {
         createGrid(_grid, _parking);
         VBox gridpart = new VBox(_grid);
         VBox headerpart = new VBox(_title);
-        
+
         AnchorPane anchor = new AnchorPane(headerpart, gridpart);
 
         Scene scene = new Scene(anchor);
@@ -60,33 +55,37 @@ public class FXMLDocumentController implements Initializable {
 
     }
 
-    public static void createGrid(GridPane grid, Parking parking) {
+    private void createGrid(GridPane grid, Parking parking) {
         //grid.setMinSize(500, 500);
 
         grid.setPadding(new Insets(100, 10, 10, 10));
         grid.setVgap(70);
         grid.setHgap(0);
-
+        int cpt=0;
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
-                Button b = new Button(parking.getParkingspace()[i].getVehicule().getType().toString());
+                
+                Button b = new Button(String.valueOf(parking.getParkingspace()
+                        [cpt].getParking_space_number())+"\n"
+                        +parking.getParkingspace()[cpt].getVehicule().getNumberplate());
                 b.setPrefWidth(200);
                 b.setPrefHeight(100);
-                grid.add(b, i, j);
+                cpt++;
+                grid.add(b, j, i);
             }
 
         }
 
     }
+    
 
-    public void initializeComponent() {
+    private void initializeComponent() {
         _grid = new GridPane();
         _parking = new Parking();
         _title = new Label("Parking Helb 2.0");
         _title.setPrefSize(800, 100);
         _title.setAlignment(Pos.CENTER);
         _title.setFont(new Font("Calibri", 50));
-        
 
     }
 
