@@ -8,6 +8,9 @@ package view;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -44,7 +47,15 @@ public class FXMLDocumentController implements Initializable {
 
     public void generateAll(Stage stage) throws IOException {
         initializeComponent();
-        createGrid(_grid, _parking);
+        _parking = new Parking();
+        showScene(_parking, stage);
+      
+       
+    }
+    
+    public void showScene(Parking p,Stage stage){
+         initializeComponent();
+        createGrid(_grid, _parking, stage);
         VBox gridpart = new VBox(_grid);
         VBox headerpart = new VBox(_title);
 
@@ -53,10 +64,10 @@ public class FXMLDocumentController implements Initializable {
         Scene scene = new Scene(anchor);
         stage.setScene(scene);
         stage.show();
-
+        
     }
 
-    private void createGrid(GridPane grid, Parking parking) {
+    public void createGrid(GridPane grid, Parking parking, Stage stage) {
 
         grid.setPadding(new Insets(100, 10, 10, 10));
         grid.setVgap(70);
@@ -68,7 +79,10 @@ public class FXMLDocumentController implements Initializable {
                 colorParkingPlace(button_parking_place, parking.getParkingspace()[cpt]);
                 button_parking_place.setPrefWidth(200);
                 button_parking_place.setPrefHeight(100);
+                System.out.println("DEMO :  " + parking.getParkingspace()[cpt].toString());
+                clickPlaceParking(button_parking_place, parking.getParkingspace()[cpt], stage, parking);
                 cpt++;
+
                 grid.add(button_parking_place, j, i);
             }
 
@@ -104,12 +118,21 @@ public class FXMLDocumentController implements Initializable {
 
     private void initializeComponent() {
         _grid = new GridPane();
-        _parking = new Parking();
         _title = new Label("Parking Helb 2.0");
         _title.setPrefSize(1000, 100);
         _title.setAlignment(Pos.CENTER);
         _title.setFont(new Font("Calibri", 50));
 
+    }
+
+    private void clickPlaceParking(Button place, ParkingSpace p, Stage stage, Parking parking) {
+        place.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                EditInterfaceController edit = new EditInterfaceController();
+                edit.generateEditScene(p, stage, parking);
+            }
+        });
     }
 
 }

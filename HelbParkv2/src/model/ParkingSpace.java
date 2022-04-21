@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Marwa
  */
 public class ParkingSpace {
-    
+
     private Date _date;
     private int parking_space_number;
     private ParkingSpaceStatus _status;
@@ -32,7 +32,6 @@ public class ParkingSpace {
     public ParkingSpace() {
     }
 
-    
     public Date getDate() {
         return _date;
     }
@@ -85,12 +84,10 @@ public class ParkingSpace {
     public String toString() {
         return "ParkingSpace{" + "_date=" + _date + ", parking_space_number=" + parking_space_number + ", _status=" + _status + ", _vehicule=" + _vehicule + ", total_price=" + total_price + ", name=" + name + '}';
     }
-    
-    
-    
-    
-    
-   
-    
-    
+
+    public void freeParkingPlace() {
+        this._status = ParkingSpaceStatus.FREE;
+        this._vehicule = new Vehicule(null, null);
+    }
+
 }
