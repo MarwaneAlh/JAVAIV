@@ -9,7 +9,13 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.Parking;
+
 
 /**
  *
@@ -17,14 +23,12 @@ import javafx.stage.Stage;
  */
 public class main extends Application {
     
+    
+    
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        
-        Scene scene = new Scene(root);
-        
-        stage.setScene(scene);
-        stage.show();
+        FXMLDocumentController controller = new FXMLDocumentController();
+        controller.generateAll(stage);
     }
 
     /**
