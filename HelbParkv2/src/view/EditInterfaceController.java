@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import model.ParkingSpace;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.layout.HBox;
 import model.Parking;
 import model.ParkingSpaceStatus;
 import model.Vehicule;
@@ -37,7 +38,7 @@ public class EditInterfaceController implements Initializable {
     @FXML
     private Label _title, _status, _type, _numberplate, total_price;
     Scene scene;
-    Button quitbtn;
+    Button freePlaceButton, quitbutton;
     Parking _parking;
 
     @Override
@@ -54,24 +55,35 @@ public class EditInterfaceController implements Initializable {
         _numberplate = new Label("Immatriculation : " + parkingspace.getVehicule().getNumberplate());
         total_price = new Label("Total à payer : " + parkingspace.getTotal_price() + " euro");
 
-        quitbtn = new Button("Libérer l'emplacement");
-        quitbtn.setPrefSize(500, 50);
-        quitbtn.setFont(new Font("Calibri", 40));
+        freePlaceButton = new Button("Libérer l'emplacement");
+        freePlaceButton.setPrefSize(500, 50);
+        freePlaceButton.setFont(new Font("Calibri", 40));
 
-        quitbtn.setStyle("-fx-border-radius: 5px;"
+        freePlaceButton.setStyle("-fx-border-radius: 5px;"
                 + " -fx-border-width: 2px;"
                 + "-fx-border-color: #A2BA91; "
                 + "-fx-background-color: #D3E9D4; ");
 
-        clickFreeUpSpace(quitbtn, stage, parkingspace);
+        clickFreeUpSpace(freePlaceButton, stage, parkingspace);
+
+        quitbutton = new Button("Quitter");
+        quitbutton.setPrefSize(200, 50);
+        quitbutton.setFont(new Font("Calibri", 40));
+        quitbutton.setStyle("-fx-border-radius: 5px;"
+                + " -fx-border-width: 2px;"
+                + "-fx-background-color: #F6CDC9; "
+                + "-fx-border-color: #BA676F;");
+        clickQuitButton(quitbutton,stage);
 
         _title.setPrefSize(1000, 100);
         _title.setAlignment(Pos.CENTER);
         _title.setFont(new Font("Calibri", 50));
 
         VBox header = new VBox(_title);
-        VBox toedit = new VBox(_status, _type, _numberplate, total_price, quitbtn);
-        toedit.setMargin(quitbtn, new Insets(40));
+
+        VBox toedit = new VBox(_status, _type, _numberplate, total_price, freePlaceButton, quitbutton);
+        toedit.setMargin(quitbutton, new Insets(40));
+        toedit.setMargin(freePlaceButton, new Insets(40));
         toedit.setAlignment(Pos.CENTER);
         _status.setFont(new Font("Calibri", 30));
         _type.setFont(new Font("Calibri", 30));
@@ -92,7 +104,7 @@ public class EditInterfaceController implements Initializable {
         freeplace.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                _parking= new Parking();
+                _parking = new Parking();
                 _parking.getParkingspace()[tomidfy.getParking_space_number()].setStatus(ParkingSpaceStatus.FREE);
 
                 System.out.println(_parking.getParkingspace()[tomidfy.getParking_space_number()].getStatus());
@@ -104,6 +116,18 @@ public class EditInterfaceController implements Initializable {
 
         });
 
+    }
+    
+    private void clickQuitButton(Button quit,Stage stage){
+        quit.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+               FXMLDocumentController open = new FXMLDocumentController();
+                _parking = new Parking();
+
+               open.showScene(_parking, stage);
+            }
+        });
     }
 
 }
