@@ -5,24 +5,15 @@
  */
 package view;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import model.Parking;
 import model.ParkingSpace;
 import model.ParkingSpaceStatus;
@@ -31,75 +22,97 @@ import model.ParkingSpaceStatus;
  *
  * @author Marwa
  */
-public class FXMLDocumentController implements Initializable {
-
-    @FXML
-    private static int row = 4;
-    private static int column = 5;
+public class HomeWindowView {
+    
     private GridPane _grid;
-    private Parking _parking;
     private Label _title;
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+    private int _row = 4, _column =5;
+    private Parent view;
+    
+    public HomeWindowView(Parking parking) {
+        view = createHomeView(parking);
     }
 
-    public void generateAll(Stage stage) throws IOException {
-        initializeComponent();
-        _parking = new Parking();
-        showScene(_parking, stage);
-      
-       
+    public Parent getView() {
+        
+        return view;
     }
     
-    public void showScene(Parking p,Stage stage){
-         initializeComponent();
-        createGrid(_grid, _parking, stage);
+    
+    
+    public void setGrid(GridPane _grid) {
+        this._grid = _grid;
+    }
+    
+    public void setTitle(Label _title) {
+        this._title = _title;
+    }
+    
+    public void setRow(int _row) {
+        this._row = _row;
+    }
+    
+    public void setColumn(int _column) {
+        this._column = _column;
+    }
+    
+    private AnchorPane createHomeView(Parking parking) {
+        AnchorPane anchor = new AnchorPane();
+        initializeComponent();
+        createGrid(_grid, parking);
         VBox gridpart = new VBox(_grid);
         VBox headerpart = new VBox(_title);
+        anchor.getChildren().add(headerpart);
+        anchor.getChildren().add(gridpart);
 
-        AnchorPane anchor = new AnchorPane(headerpart, gridpart);
-
-        Scene scene = new Scene(anchor);
-        stage.setScene(scene);
-        stage.show();
+        
+        return anchor;
         
     }
-
-    public void createGrid(GridPane grid, Parking parking, Stage stage) {
-
+    
+    public void initializeComponent() {
+        _grid = new GridPane();
+        _title = new Label("Parking Helb 2.0");
+        _title.setPrefSize(1000, 100);
+        _title.setAlignment(Pos.CENTER);
+        _title.setFont(new Font("Calibri", 50));
+        
+    }
+    
+    public void createGrid(GridPane grid, Parking parking) {
+        
         grid.setPadding(new Insets(100, 10, 10, 10));
         grid.setVgap(70);
         grid.setHgap(0);
         int cpt = 0;
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < column; j++) {
+        for (int i = 0; i < _row; i++) {
+            for (int j = 0; j < _column; j++) {
                 Button button_parking_place = new Button();
                 colorParkingPlace(button_parking_place, parking.getParkingspace()[cpt]);
                 button_parking_place.setPrefWidth(200);
                 button_parking_place.setPrefHeight(100);
                 System.out.println("DEMO :  " + parking.getParkingspace()[cpt].toString());
-                clickPlaceParking(button_parking_place, parking.getParkingspace()[cpt], stage, parking);
                 cpt++;
-
+                
                 grid.add(button_parking_place, j, i);
             }
-
+            
         }
-
+        
     }
-
+    
     private void colorParkingPlace(Button place, ParkingSpace parking) {
         if (parking.getStatus() == ParkingSpaceStatus.OCCUPIED) {
             place.setText(String.valueOf(parking.getParking_space_number())
                     + "\n" + parking.getVehicule().getNumberplate());
             switch (parking.getVehicule().getType()) {
                 case MOTORBIKE:
+                    
                     place.setStyle("-fx-background-color: #D9E8FB; "
                             + "-fx-border-color: #859FBA;");
                     break;
                 case CAR:
+                    
                     place.setStyle("-fx-background-color: #F6CDC9; "
                             + "-fx-border-color: #BA676F;");
                     break;
@@ -107,32 +120,13 @@ public class FXMLDocumentController implements Initializable {
                     place.setStyle("-fx-background-color: #E2D5E7; -"
                             + "fx-border-color: #9F8CA8;");
             }
-
+            
         } else {
             place.setText(String.valueOf(parking.getParking_space_number()));
             place.setStyle("-fx-background-color: #D3E9D4; "
                     + "-fx-border-color: #9AB588");
         }
-
+        
     }
-
-    private void initializeComponent() {
-        _grid = new GridPane();
-        _title = new Label("Parking Helb 2.0");
-        _title.setPrefSize(1000, 100);
-        _title.setAlignment(Pos.CENTER);
-        _title.setFont(new Font("Calibri", 50));
-
-    }
-
-    private void clickPlaceParking(Button place, ParkingSpace p, Stage stage, Parking parking) {
-        place.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                EditInterfaceController edit = new EditInterfaceController();
-                edit.generateEditScene(p, stage, parking);
-            }
-        });
-    }
-
+    
 }

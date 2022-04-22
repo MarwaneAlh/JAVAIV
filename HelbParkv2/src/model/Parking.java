@@ -12,14 +12,14 @@ import java.util.Date;
  * @author Marwa
  */
 public class Parking {
-    
-    private ParkingSpace[]_parkingspace;
-    private int _sizeParking=20;
+
+    private ParkingSpace[] _parkingspace;
+    private int _sizeParking = 20;
 
     public Parking() {
         ParkingSpace[] parking = new ParkingSpace[_sizeParking];
-        for(int i =0;i<_sizeParking;i++){
-            parking[i]=new ParkingSpace(new Date(2, 2, 1998), i, ParkingSpaceStatus.OCCUPIED, new Vehicule(TypeOfVehicule.CAR, "C"+i), i, "salut");
+        for (int i = 0; i < _sizeParking; i++) {
+            parking[i] = new ParkingSpace(new Date(2, 2, 1998), i, ParkingSpaceStatus.OCCUPIED, new Vehicule(TypeOfVehicule.CAR, "C" + i), i, "salut");
         }
         this._parkingspace = parking;
     }
@@ -39,10 +39,5 @@ public class Parking {
     public void setSizeParking(int _sizeParking) {
         this._sizeParking = _sizeParking;
     }
-    
-    
-    
-    
-    
-    
+
 }

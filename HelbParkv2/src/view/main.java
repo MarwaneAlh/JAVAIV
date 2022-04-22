@@ -27,8 +27,18 @@ public class main extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLDocumentController controller = new FXMLDocumentController();
-        controller.generateAll(stage);
+        /*FXMLDocumentController controller = new FXMLDocumentController();
+        controller.generateAll(stage);*/
+        //TEST 
+        /*EditingWindowView e = new EditingWindowView();
+        Scene scene = new Scene(e.view);*/
+        Parking parking = new Parking();
+        HomeWindowView e = new HomeWindowView(parking);
+        Scene scene = new Scene(e.getView());
+        stage.setScene(scene);
+        stage.show();
+        
+        
     }
 
     /**
