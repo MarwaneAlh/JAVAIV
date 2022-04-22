@@ -14,7 +14,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-
 /**
  *
  * @author Marwa
@@ -29,34 +28,37 @@ public class EditingWindowView {
         view = createView();
 
     }
-    
 
-    public void setTitle(Label _title) {
-        this._title = _title;
+    public Parent getEditView() {
+        return view;
     }
 
-    public void setStatus(Label _status) {
-        this._status = _status;
+    public Button getFreePlaceButton() {
+        return freePlaceButton;
     }
 
-    public void setType(Label _type) {
-        this._type = _type;
+    public Button getQuitbutton() {
+        return quitbutton;
     }
 
-    public void setNumberplate(Label _numberplate) {
-        this._numberplate = _numberplate;
+    public Label getTitle() {
+        return _title;
     }
 
-    public void setTotal_price(Label _total_price) {
-        this._total_price = _total_price;
+    public Label getStatus() {
+        return _status;
     }
 
-    public void setFreePlaceButton(Button freePlaceButton) {
-        this.freePlaceButton = freePlaceButton;
+    public Label getType() {
+        return _type;
     }
 
-    public void setQuitbutton(Button quitbutton) {
-        this.quitbutton = quitbutton;
+    public Label getNumberplate() {
+        return _numberplate;
+    }
+
+    public Label getTotal_price() {
+        return _total_price;
     }
 
     private AnchorPane createView() {

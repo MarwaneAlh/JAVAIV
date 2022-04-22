@@ -5,40 +5,34 @@
  */
 package view;
 
+import controller.HelloParkController;
+import controller.HomeWindowController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Parking;
-
 
 /**
  *
  * @author Marwa
  */
 public class main extends Application {
-    
-    
-    
+
     @Override
     public void start(Stage stage) throws Exception {
-        /*FXMLDocumentController controller = new FXMLDocumentController();
-        controller.generateAll(stage);*/
         //TEST 
         /*EditingWindowView e = new EditingWindowView();
         Scene scene = new Scene(e.view);*/
-        Parking parking = new Parking();
+ /*Parking parking = new Parking();
         HomeWindowView e = new HomeWindowView(parking);
         Scene scene = new Scene(e.getView());
         stage.setScene(scene);
-        stage.show();
-        
-        
+        stage.show();*/
+        AnchorPane parent = new AnchorPane();
+        Scene scene = new Scene(parent);
+        HelloParkController maincontroller = new HelloParkController(stage, scene);
+
     }
 
     /**
@@ -47,5 +41,5 @@ public class main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

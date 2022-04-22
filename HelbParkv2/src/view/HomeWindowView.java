@@ -37,24 +37,22 @@ public class HomeWindowView {
         
         return view;
     }
-    
-    
-    
-    public void setGrid(GridPane _grid) {
-        this._grid = _grid;
+
+    public GridPane getGrid() {
+        return _grid;
+    }
+
+    public Label getTitle() {
+        return _title;
+    }
+
+    public void setView(Parent view) {
+        this.view = view;
     }
     
-    public void setTitle(Label _title) {
-        this._title = _title;
-    }
     
-    public void setRow(int _row) {
-        this._row = _row;
-    }
     
-    public void setColumn(int _column) {
-        this._column = _column;
-    }
+
     
     private AnchorPane createHomeView(Parking parking) {
         AnchorPane anchor = new AnchorPane();

@@ -19,7 +19,11 @@ public class Parking {
     public Parking() {
         ParkingSpace[] parking = new ParkingSpace[_sizeParking];
         for (int i = 0; i < _sizeParking; i++) {
-            parking[i] = new ParkingSpace(new Date(2, 2, 1998), i, ParkingSpaceStatus.OCCUPIED, new Vehicule(TypeOfVehicule.CAR, "C" + i), i, "salut");
+            parking[i] = new ParkingSpace(new Date(2, 2, 1998),
+                    i, ParkingSpaceStatus.OCCUPIED,
+                    new Vehicule(TypeOfVehicule.CAR,
+                            "C" + i),
+                    i, "salut");
         }
         this._parkingspace = parking;
     }
