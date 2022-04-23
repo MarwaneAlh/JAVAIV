@@ -45,7 +45,7 @@ public class HomeWindowController {
                 public void handle(MouseEvent event) {
                     Button _whichBtnClicked = (Button) event.getSource();
                     String whichPlaceString = _whichBtnClicked.getText();
-                    if (whichPlaceString.length() == 4) {
+                    if (whichPlaceString.length() <= 4) {
                         whichPlace = Integer.parseInt(String.valueOf(whichPlaceString.charAt(0)));
                     } else {
                         whichPlace = Integer.parseInt(String.valueOf(whichPlaceString.substring(0, 2)));

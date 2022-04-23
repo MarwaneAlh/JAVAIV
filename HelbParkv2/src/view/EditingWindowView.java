@@ -9,10 +9,14 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import model.TypeOfVehicule;
+import model.Vehicule;
 
 /**
  *
@@ -21,12 +25,17 @@ import javafx.scene.text.Font;
 public class EditingWindowView {
 
     private Label _title, _status, _type, _numberplate, _total_price;
-    private Button freePlaceButton, quitbutton;
+    private Button freePlaceButton, quitbutton, typechange, numberplatechange;
     private Parent view;
+    private ComboBox _typevalue;
 
     public EditingWindowView() {
         view = createView();
 
+    }
+
+    public ComboBox getTypevalue() {
+        return _typevalue;
     }
 
     public Parent getEditView() {
@@ -61,6 +70,14 @@ public class EditingWindowView {
         return _total_price;
     }
 
+    public Button getTypechange() {
+        return typechange;
+    }
+
+    public Button getNumberplatechange() {
+        return numberplatechange;
+    }
+
     private AnchorPane createView() {
         AnchorPane anchor = new AnchorPane();
 
@@ -68,11 +85,24 @@ public class EditingWindowView {
         editButtonQuit();
         editTitle();
         _status = createLabel("Status : ");
+
         _type = createLabel("Type Véhicule : ");
+        editComboBox();
+
+        typechange = editButtonEditDataVehicule("Changer type");
+        HBox vehiculeType = new HBox(_type, _typevalue, typechange);
+        vehiculeType.setMargin(_typevalue, new Insets(10));
+        vehiculeType.setAlignment(Pos.CENTER);
+
         _numberplate = createLabel("Immatriculation : ");
+        numberplatechange = editButtonEditDataVehicule("Editer");
+        HBox numberplateEdit = new HBox(_numberplate, numberplatechange);
+        numberplateEdit.setMargin(_numberplate, new Insets(10));
+        numberplateEdit.setAlignment(Pos.CENTER);
+
         _total_price = createLabel("Total à payer : ");
         VBox header = new VBox(_title);
-        VBox toedit = new VBox(_status, _type, _numberplate, _total_price,
+        VBox toedit = new VBox(_status, vehiculeType, numberplateEdit, _total_price,
                 freePlaceButton, quitbutton);
         toedit.setMargin(quitbutton, new Insets(40));
         toedit.setMargin(freePlaceButton, new Insets(40));
@@ -82,6 +112,19 @@ public class EditingWindowView {
         anchor.getChildren().add(all);
 
         return anchor;
+
+    }
+
+    private void editComboBox() {
+        _typevalue = new ComboBox();
+        _typevalue.setDisable(true);
+        _typevalue.setStyle("-fx-opacity: 1.0;"
+                + " -fx-text-fill:"
+                + " black;-fx-background-color: white");
+        for (TypeOfVehicule enumvalue : TypeOfVehicule.values()) {
+            _typevalue.getItems().add(enumvalue);
+
+        }
 
     }
 
@@ -118,6 +161,17 @@ public class EditingWindowView {
         Label toreturn = new Label(text);
         toreturn.setFont(new Font("Calibri", 30));
         return toreturn;
+    }
+
+    private Button editButtonEditDataVehicule(String text) {
+        Button btn = new Button(text);
+        btn.setFont(new Font("Calibri", 20));
+        btn.setPrefSize(150, 10);
+        btn.setStyle("-fx-border-radius: 5px;"
+                + " -fx-border-width: 2px;"
+                + "-fx-background-color: #D9E8FB; "
+                + "-fx-border-color: #9DACC8;");
+        return btn;
     }
 
 }
