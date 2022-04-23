@@ -11,10 +11,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Parking;
 import model.ParkingSpace;
+import model.TypeOfVehicule;
 import view.EditingWindowView;
 
 /**
@@ -28,6 +30,7 @@ public class EditingWindowController {
     private Button freePlaceButton, quitbutton, typechange, numberplatechange;
     private Label _title, _status, _type, _numberplate, _total_price;
     private ComboBox _typevalue;
+    private TextField numberplate;
 
     public EditingWindowController(Parking _parking, ParkingSpace parkingspace, Scene scene, Stage stage) {
         this._parking = _parking;
@@ -41,11 +44,13 @@ public class EditingWindowController {
         _total_price = _view.getTotal_price();
         typechange = _view.getTypechange();
         numberplatechange = _view.getNumberplatechange();
+        numberplate = _view.getNumberPlateTextField();
         _typevalue = _view.getTypevalue();
         editAllComponentWithParkingSpace(parkingspace);
-        quitButton(scene, stage);
+        quitButton(scene, stage, parkingspace);
         freeSpaceButton(parkingspace, stage, scene);
         typechangeButton();
+        editNumberPlateButtonOnclick();
 
     }
 
@@ -64,10 +69,15 @@ public class EditingWindowController {
 
     }
 
-    private void quitButton(Scene scene, Stage stage) {
+    private void quitButton(Scene scene, Stage stage, ParkingSpace parkingspace) {
         quitbutton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+
+                _parking.getParkingspace()[parkingspace.getParking_space_number()]
+                        .getVehicule().setNumberplate(numberplate.getText());
+                _parking.getParkingspace()[parkingspace.getParking_space_number()]
+                        .getVehicule().setType(TypeOfVehicule.valueOf(_typevalue.getValue().toString()));
                 HomeWindowController controller = new HomeWindowController(
                         _parking, scene, stage);
                 Scene scene = new Scene(controller.getViewController().getView());
@@ -94,13 +104,22 @@ public class EditingWindowController {
 
     private void editAllComponentWithParkingSpace(ParkingSpace parkingspace) {
         _title.setText("Emplacement : " + parkingspace.getParking_space_number());
-        //_typevalue.setEditable(true);
-
         _status.setText("Status : " + parkingspace.getStatus());
         _type.setText("Type Véhicule : ");
         _typevalue.setValue(parkingspace.getVehicule().getType());
-        _numberplate.setText(("Immatriculation : " + parkingspace.getVehicule().getNumberplate()));
+        _numberplate.setText(("Immatriculation : "));
         _total_price.setText("Total à payer : " + parkingspace.getTotal_price());
+        numberplate.setText(parkingspace.getVehicule().getNumberplate());
+        numberplate.setEditable(false);
+    }
+
+    private void editNumberPlateButtonOnclick() {
+        numberplatechange.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                numberplate.setEditable(true);
+            }
+        });
     }
 
 }

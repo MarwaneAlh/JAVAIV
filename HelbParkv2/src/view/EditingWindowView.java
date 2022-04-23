@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -28,10 +29,10 @@ public class EditingWindowView {
     private Button freePlaceButton, quitbutton, typechange, numberplatechange;
     private Parent view;
     private ComboBox _typevalue;
+    private TextField numberplate;
 
     public EditingWindowView() {
         view = createView();
-
     }
 
     public ComboBox getTypevalue() {
@@ -78,6 +79,10 @@ public class EditingWindowView {
         return numberplatechange;
     }
 
+    public TextField getNumberPlateTextField() {
+        return numberplate;
+    }
+
     private AnchorPane createView() {
         AnchorPane anchor = new AnchorPane();
 
@@ -96,7 +101,8 @@ public class EditingWindowView {
 
         _numberplate = createLabel("Immatriculation : ");
         numberplatechange = editButtonEditDataVehicule("Editer");
-        HBox numberplateEdit = new HBox(_numberplate, numberplatechange);
+        numberplate = new TextField();
+        HBox numberplateEdit = new HBox(_numberplate, numberplate, numberplatechange);
         numberplateEdit.setMargin(_numberplate, new Insets(10));
         numberplateEdit.setAlignment(Pos.CENTER);
 
