@@ -19,23 +19,23 @@ import view.LaunchWindowView;
  * @author Marwa
  */
 public class LaunchWindowController {
-    
+
     private LaunchWindowView _view;
-     private Parking _parking;
- 
-    
-    public LaunchWindowController(Scene scene, Stage stage,Parking _parking) {
+    private Parking _parking;
+
+    public LaunchWindowController(Scene scene, Stage stage, Parking _parking) {
         _view = new LaunchWindowView();
-        this._parking=_parking;
+        this._parking = _parking;
+        _view.getPath().setEditable(false);
         chooseBtn();
-        openHomeWindow(scene, stage,_parking);
-        
+        openHomeWindow(scene, stage, _parking);
+
     }
-    
+
     public LaunchWindowView getViewController() {
         return _view;
     }
-    
+
     private void chooseBtn() {
         _view.getChoose_path_btn().setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -49,18 +49,24 @@ public class LaunchWindowController {
             }
         });
     }
-    
-    private void openHomeWindow(Scene scene, Stage stage,Parking _parking) {
+
+    private void openHomeWindow(Scene scene, Stage stage, Parking _parking) {
         _view.getSave_btn().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                HomeWindowController controller = new HomeWindowController(
-                        _parking, scene, stage);
-                Scene scene = new Scene(controller.getViewController().getView());
-                stage.setScene(scene);
-                stage.show();
+                if (!_view.getPath().getText().isEmpty()
+                        &&!_view.getPath().getText().equals("Veuillez d'abord choisir un emplacement!")) {
+                    HomeWindowController controller = new HomeWindowController(
+                            _parking, scene, stage);
+                    Scene scene = new Scene(controller.getViewController().getView());
+                    stage.setScene(scene);
+                    stage.show();
+                    
+                }else{
+                    _view.getPath().setText("Veuillez d'abord choisir un emplacement!");
+                }
             }
         });
     }
-    
+
 }
