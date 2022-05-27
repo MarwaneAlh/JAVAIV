@@ -101,7 +101,7 @@ public class EditingWindowView {
 
         _numberplate = createLabel("Immatriculation : ");
         numberplatechange = editButtonEditDataVehicule("Editer");
-        numberplate = new TextField();
+        numberplate = new TextField("");
         HBox numberplateEdit = new HBox(_numberplate, numberplate, numberplatechange);
         numberplateEdit.setMargin(_numberplate, new Insets(10));
         numberplateEdit.setAlignment(Pos.CENTER);

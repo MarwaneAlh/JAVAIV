@@ -22,8 +22,7 @@ public class Parking {
             parking[i] = new ParkingSpace(new Date(2, 2, 1998),
                     i, ParkingSpaceStatus.OCCUPIED,
                     new Vehicule(TypeOfVehicule.CAR,
-                            "C" + i),
-                    i, "salut");
+                            "C" + i));
         }
         this._parkingspace = parking;
     }

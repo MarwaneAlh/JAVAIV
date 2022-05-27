@@ -18,15 +18,13 @@ public class ParkingSpace {
     private ParkingSpaceStatus _status;
     private Vehicule _vehicule;
     private int total_price;
-    private String name;
 
-    public ParkingSpace(Date _date, int parking_space_number, ParkingSpaceStatus _status, Vehicule _vehicule, int total_price, String name) {
+    public ParkingSpace(Date _date, int parking_space_number, ParkingSpaceStatus _status, Vehicule _vehicule) {
         this._date = _date;
         this.parking_space_number = parking_space_number;
         this._status = _status;
         this._vehicule = _vehicule;
-        this.total_price = total_price;
-        this.name = name;
+        this.total_price = getTypePrice(_vehicule.getType());
     }
 
     public ParkingSpace() {
@@ -52,10 +50,6 @@ public class ParkingSpace {
         return total_price;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setDate(Date _date) {
         this._date = _date;
     }
@@ -76,18 +70,31 @@ public class ParkingSpace {
         this.total_price = total_price;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public String toString() {
-        return "ParkingSpace{" + "_date=" + _date + ", parking_space_number=" + parking_space_number + ", _status=" + _status + ", _vehicule=" + _vehicule + ", total_price=" + total_price + ", name=" + name + '}';
+        return "ParkingSpace{" + "_date=" + _date + ", parking_space_number=" + parking_space_number + ", _status=" + _status + ", _vehicule=" + _vehicule + ", total_price=" + total_price + '}';
     }
 
     public void freeParkingPlace() {
         this._status = ParkingSpaceStatus.FREE;
-        this._vehicule = new Vehicule(null, null);
+        this._vehicule = new Vehicule(TypeOfVehicule.NONE, "none");
+        this.total_price = 0;
+    }
+
+    private int getTypePrice(TypeOfVehicule type) {
+        int price = 0;
+        switch (type) {
+            case CAR:
+                price = 20;
+                break;
+            case MOTORBIKE:
+                price = 10;
+                break;
+            case TRUCK:
+                price = 30;
+                break;
+        }
+        return price;
     }
 
 }

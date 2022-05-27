@@ -13,6 +13,7 @@ public enum TypeOfVehicule {
     
     MOTORBIKE,
     CAR,
-    TRUCK;
+    TRUCK,
+    NONE;
     
 }

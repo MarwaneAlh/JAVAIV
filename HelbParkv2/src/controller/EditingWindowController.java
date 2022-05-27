@@ -5,6 +5,7 @@
  */
 package controller;
 
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -50,6 +51,7 @@ public class EditingWindowController {
         quitButton(scene, stage, parkingspace);
         freeSpaceButton(parkingspace, stage, scene);
         typechangeButton();
+ 
         editNumberPlateButtonOnclick();
 
     }
@@ -74,10 +76,14 @@ public class EditingWindowController {
             @Override
             public void handle(ActionEvent event) {
 
-                _parking.getParkingspace()[parkingspace.getParking_space_number()]
-                        .getVehicule().setNumberplate(numberplate.getText());
-                _parking.getParkingspace()[parkingspace.getParking_space_number()]
-                        .getVehicule().setType(TypeOfVehicule.valueOf(_typevalue.getValue().toString()));
+                if (!numberplate.getText().equals("none") && !_typevalue.getValue().equals("NONE")) {
+                    System.out.println("BON");
+                    _parking.getParkingspace()[parkingspace.getParking_space_number()]
+                            .getVehicule().setNumberplate(numberplate.getText());
+                    _parking.getParkingspace()[parkingspace.getParking_space_number()]
+                            .getVehicule().setType(TypeOfVehicule.valueOf(_typevalue.getValue().toString()));
+                }
+
                 HomeWindowController controller = new HomeWindowController(
                         _parking, scene, stage);
                 Scene scene = new Scene(controller.getViewController().getView());
