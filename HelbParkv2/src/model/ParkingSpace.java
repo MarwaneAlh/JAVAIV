@@ -81,7 +81,7 @@ public class ParkingSpace {
         this.total_price = 0;
     }
 
-    private int getTypePrice(TypeOfVehicule type) {
+    public int getTypePrice(TypeOfVehicule type) {
         int price = 0;
         switch (type) {
             case CAR:

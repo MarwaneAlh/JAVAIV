@@ -21,7 +21,7 @@ public class Parking {
         for (int i = 0; i < _sizeParking; i++) {
             parking[i] = new ParkingSpace(new Date(2, 2, 1998),
                     i, ParkingSpaceStatus.OCCUPIED,
-                    new Vehicule(TypeOfVehicule.CAR,
+                    new Vehicule(TypeOfVehicule.MOTORBIKE,
                             "C" + i));
         }
         this._parkingspace = parking;

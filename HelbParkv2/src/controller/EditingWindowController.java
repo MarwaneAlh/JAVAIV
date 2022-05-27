@@ -51,7 +51,7 @@ public class EditingWindowController {
         quitButton(scene, stage, parkingspace);
         freeSpaceButton(parkingspace, stage, scene);
         typechangeButton();
- 
+
         editNumberPlateButtonOnclick();
 
     }
@@ -64,8 +64,14 @@ public class EditingWindowController {
         typechange.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
+                ParkingSpace p = new ParkingSpace();
                 _typevalue.setDisable(false);
+                typechange.setText("Appliquer");
+
+                if (typechange.getText().equals("Appliquer")) {
+                    _total_price.setText("Total à payer :" + p.getTypePrice(
+                            TypeOfVehicule.valueOf(_typevalue.getValue().toString())));
+                }
             }
         });
 
@@ -77,11 +83,15 @@ public class EditingWindowController {
             public void handle(ActionEvent event) {
 
                 if (!numberplate.getText().equals("none") && !_typevalue.getValue().equals("NONE")) {
-                    System.out.println("BON");
+
                     _parking.getParkingspace()[parkingspace.getParking_space_number()]
                             .getVehicule().setNumberplate(numberplate.getText());
                     _parking.getParkingspace()[parkingspace.getParking_space_number()]
                             .getVehicule().setType(TypeOfVehicule.valueOf(_typevalue.getValue().toString()));
+                    _parking.getParkingspace()[parkingspace.getParking_space_number()]
+                            .setTotal_price(_parking.getParkingspace()[parkingspace.getParking_space_number()]
+                                    .getTypePrice(TypeOfVehicule.valueOf(_typevalue.getValue().toString())));
+
                 }
 
                 HomeWindowController controller = new HomeWindowController(
