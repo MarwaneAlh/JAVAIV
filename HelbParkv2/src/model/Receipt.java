@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -13,18 +15,29 @@ import java.util.Date;
  */
 public class Receipt {
     
-    private Date _today_date;
+    private String _today_date;
     private int _place_number;
     private TypeOfVehicule _type_vehicule;
     private int _price;
-    private ParkingSpace _parkingplace;
 
-    public Receipt(Date _today_date,ParkingSpace _parkingspace) {
-        this._today_date = _today_date;
+    public Receipt(ParkingSpace _parkingspace) {
+        Date date = new Date();
+        DateFormat formatter= new SimpleDateFormat("dd/MM/yy");
+        this._today_date = formatter.format(date);
         this._place_number =_parkingspace.getParking_space_number();
         this._type_vehicule =_parkingspace.getVehicule().getType();
         this._price = _parkingspace.getTotal_price();
+        
     }
+
+    @Override
+    public String toString() {
+        return "Receipt{" + "_today_date=" + _today_date + ", _place_number=" 
+                + _place_number + ", _type_vehicule=" + _type_vehicule + ", _price=" + _price +'}';
+    }
+    
+    
+    
     
     
     

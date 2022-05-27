@@ -15,12 +15,12 @@ import model.Parking;
  */
 public class HelloParkController {
 
-    private HomeWindowController _homecontroller;
+    private LaunchWindowController _homecontroller;
     private Parking _parking;
 
     public HelloParkController(Stage stage, Scene scene) {
         _parking = new Parking();
-        _homecontroller = new HomeWindowController(_parking, scene, stage);
+        _homecontroller = new LaunchWindowController(scene, stage,_parking);
         Scene s = new Scene(_homecontroller.getViewController().getView());
         stage.setScene(s);
         stage.show();

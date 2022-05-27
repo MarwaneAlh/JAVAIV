@@ -15,8 +15,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javax.swing.JFileChooser;
 import model.Parking;
 import model.ParkingSpace;
+import model.Receipt;
 import model.TypeOfVehicule;
 import view.EditingWindowView;
 
@@ -64,6 +66,7 @@ public class EditingWindowController {
         typechange.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+
                 ParkingSpace p = new ParkingSpace();
                 _typevalue.setDisable(false);
                 typechange.setText("Appliquer");
@@ -93,7 +96,10 @@ public class EditingWindowController {
                                     .getTypePrice(TypeOfVehicule.valueOf(_typevalue.getValue().toString())));
 
                 }
-
+                    //TEST DU RECIEPT
+                /*Receipt r = new Receipt(parkingspace);
+                System.out.println("Recipes : " + r.toString());*/
+                
                 HomeWindowController controller = new HomeWindowController(
                         _parking, scene, stage);
                 Scene scene = new Scene(controller.getViewController().getView());
