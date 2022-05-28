@@ -23,6 +23,7 @@ public class LaunchWindowController {
     private LaunchWindowView _view;
     private Parking _parking;
 
+
     public LaunchWindowController(Scene scene, Stage stage, Parking _parking) {
         _view = new LaunchWindowView();
         this._parking = _parking;
@@ -55,14 +56,14 @@ public class LaunchWindowController {
             @Override
             public void handle(ActionEvent event) {
                 if (!_view.getPath().getText().isEmpty()
-                        &&!_view.getPath().getText().equals("Veuillez d'abord choisir un emplacement!")) {
+                        && !_view.getPath().getText().equals("Veuillez d'abord choisir un emplacement!")) {
                     HomeWindowController controller = new HomeWindowController(
-                            _parking, scene, stage);
+                            _parking, scene, stage,_view.getPath().getText());
                     Scene scene = new Scene(controller.getViewController().getView());
                     stage.setScene(scene);
                     stage.show();
-                    
-                }else{
+
+                } else {
                     _view.getPath().setText("Veuillez d'abord choisir un emplacement!");
                 }
             }

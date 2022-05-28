@@ -20,27 +20,30 @@ import view.HomeWindowView;
  * @author Marwa
  */
 public class HomeWindowController {
-    
+
     private Parking _parking;
     private HomeWindowView _view;
     private int whichPlace;
-    
-    public HomeWindowController(Parking _parking, Scene scene, Stage stage) {
+    private String _path_text;
+
+    public HomeWindowController(Parking _parking, Scene scene, Stage stage, String _path) {
         this._parking = _parking;
+        this._path_text = _path;
         _view = new HomeWindowView(_parking);
         openEditWindow(scene, stage);
+
     }
-    
+
     public HomeWindowView getViewController() {
         return _view;
     }
-    
+
     private void openEditWindow(Scene scene, Stage stage) {
-        
+
         for (Node node : _view.getGrid().getChildren()) {
             Button button = (Button) node;
             button.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                
+
                 @Override
                 public void handle(MouseEvent event) {
                     Button _whichBtnClicked = (Button) event.getSource();
@@ -52,14 +55,14 @@ public class HomeWindowController {
                     }
                     EditingWindowController controller
                             = new EditingWindowController(_parking,
-                                    _parking.getParkingspace()[whichPlace], scene, stage);
+                                    _parking.getParkingspace()[whichPlace], scene, stage, _path_text);
                     Scene scene = new Scene(controller.getView().getEditView());
                     stage.setScene(scene);
                     stage.show();
-                    
+
                 }
             });
         }
     }
-    
+
 }

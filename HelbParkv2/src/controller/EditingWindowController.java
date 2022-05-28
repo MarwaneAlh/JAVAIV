@@ -5,17 +5,12 @@
  */
 package controller;
 
+import java.io.File;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javax.swing.JFileChooser;
 import model.Parking;
 import model.ParkingSpace;
 import model.Receipt;
@@ -30,15 +25,16 @@ public class EditingWindowController {
 
     private Parking _parking;
     private EditingWindowView _view;
+    private String _path_text;
 
-    public EditingWindowController(Parking _parking, ParkingSpace parkingspace, Scene scene, Stage stage) {
+    public EditingWindowController(Parking _parking, ParkingSpace parkingspace, Scene scene, Stage stage, String _path) {
         this._parking = _parking;
         this._view = new EditingWindowView();
+        this._path_text = _path;
         editAllComponentWithParkingSpace(parkingspace);
         quitButton(scene, stage, parkingspace);
         freeSpaceButton(parkingspace, stage, scene);
         typechangeButton();
-
         editNumberPlateButtonOnclick();
 
     }
@@ -81,12 +77,8 @@ public class EditingWindowController {
                                     .getTypePrice(TypeOfVehicule.valueOf(_view.getTypevalue().getValue().toString())));
 
                 }
-                //TEST DU RECIEPT
-                /*Receipt r = new Receipt(parkingspace);
-                System.out.println("Recipes : " + r.toString());*/
-
                 HomeWindowController controller = new HomeWindowController(
-                        _parking, scene, stage);
+                        _parking, scene, stage, _path_text);
                 Scene scene = new Scene(controller.getViewController().getView());
                 stage.setScene(scene);
                 stage.show();
@@ -99,9 +91,10 @@ public class EditingWindowController {
         _view.getFreePlaceButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                printTicket(parkingspace);
                 _parking.getParkingspace()[parkingspace.getParking_space_number()].freeParkingPlace();
                 HomeWindowController controller = new HomeWindowController(
-                        _parking, scene, stage);
+                        _parking, scene, stage, _path_text);
                 Scene scene = new Scene(controller.getViewController().getView());
                 stage.setScene(scene);
                 stage.show();
@@ -127,6 +120,23 @@ public class EditingWindowController {
                 _view.getNumberPlateTextField().setEditable(true);
             }
         });
+    }
+
+    private void printTicket(ParkingSpace parkingspace) {
+
+        Receipt r = new Receipt(parkingspace);
+        System.out.println(_path_text);
+        //String test = "C:\\Users\Marwa\OneDrive\Bureau";
+        File file = new File(_path_text);
+        boolean bool = file.mkdir();
+        if (bool) {
+            System.out.println("Directory created successfully");
+        } else {
+            System.out.println("Sorry couldn’t create specified directory");
+        }
+
+        System.out.println("Recipes : " + r.toString());
+
     }
 
 }

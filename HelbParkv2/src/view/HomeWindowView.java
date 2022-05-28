@@ -73,35 +73,34 @@ public class HomeWindowView {
     }
 
     public void createGrid(GridPane grid, Parking parking) {
-        
-        int column=parking.getSizeParking();
-        if(column%_row==0){
-            column=column/_row;
+
+        int column = parking.getSizeParking();
+        if (column % _row == 0) {
+            column = column / _row;
             System.out.println("entier");
-        }else{
-            System.out.println("col "+column);
-             column=(column/_row)+1;
-             System.out.println("div "+column);
+        } else {
+            System.out.println("col " + column);
+            column = (column / _row) + 1;
+            System.out.println("div " + column);
         }
-       
-        
+
         grid.setPadding(new Insets(100, 10, 10, 10));
         grid.setVgap(70);
         grid.setHgap(0);
         int cpt = 0;
-        
+
         for (int i = 0; i < _row; i++) {
             for (int j = 0; j < column; j++) {
                 Button button_parking_place = new Button();
-               if(cpt<parking.getSizeParking()){
-                colorParkingPlace(button_parking_place, parking.getParkingspace()[cpt]);
-                button_parking_place.setPrefWidth(200);
-                button_parking_place.setPrefHeight(100);
-                cpt++;
-                
-                grid.add(button_parking_place, j, i);
-               }
-               }
+                if (cpt < parking.getSizeParking()) {
+                    colorParkingPlace(button_parking_place, parking.getParkingspace()[cpt]);
+                    button_parking_place.setPrefWidth(200);
+                    button_parking_place.setPrefHeight(100);
+                    cpt++;
+
+                    grid.add(button_parking_place, j, i);
+                }
+            }
 
         }
 
