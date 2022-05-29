@@ -30,6 +30,11 @@ public class Receipt {
         
     }
 
+    public String getToday_date() {
+        return _today_date;
+    }
+    
+
     @Override
     public String toString() {
         return "Receipt{" + "_today_date=" + _today_date + ", _place_number=" 

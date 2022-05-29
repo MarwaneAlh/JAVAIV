@@ -6,6 +6,13 @@
 package controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.Parking;
 import model.ParkingSpace;
+import model.ParkingSpaceStatus;
 import model.Receipt;
 import model.TypeOfVehicule;
 import view.EditingWindowView;
@@ -75,7 +83,8 @@ public class EditingWindowController {
                     _parking.getParkingspace()[parkingspace.getParking_space_number()]
                             .setTotal_price(_parking.getParkingspace()[parkingspace.getParking_space_number()]
                                     .getTypePrice(TypeOfVehicule.valueOf(_view.getTypevalue().getValue().toString())));
-
+                    _parking.getParkingspace()[parkingspace.getParking_space_number()].setStatus(ParkingSpaceStatus.OCCUPIED);
+                    
                 }
                 HomeWindowController controller = new HomeWindowController(
                         _parking, scene, stage, _path_text);
@@ -125,17 +134,25 @@ public class EditingWindowController {
     private void printTicket(ParkingSpace parkingspace) {
 
         Receipt r = new Receipt(parkingspace);
-        System.out.println(_path_text);
-        //String test = "C:\\Users\Marwa\OneDrive\Bureau";
-        File file = new File(_path_text);
-        boolean bool = file.mkdir();
-        if (bool) {
-            System.out.println("Directory created successfully");
-        } else {
-            System.out.println("Sorry couldn’t create specified directory");
-        }
+        String date = r.getToday_date();
+        String namedirectory = date.replaceAll("/", "");
+        File file = new File(_path_text + "/tickets");
+        file.mkdir();
+        File datasave = new File(_path_text + "/tickets/" + namedirectory);
+        datasave.mkdir();
+        String carplate = parkingspace.getVehicule().getNumberplate()+"_gol";
+        File tickettosave=new File(_path_text + "/tickets/" + namedirectory+"/"+carplate+".txt");
+        
+       
+            try {
+                tickettosave.createNewFile();
+            } catch (IOException ex) {
+                System.out.println("ERROR"+ex.getMessage());
+            }
+        
 
-        System.out.println("Recipes : " + r.toString());
+
+        System.out.println("Recipess : " + r.toString());
 
     }
 
