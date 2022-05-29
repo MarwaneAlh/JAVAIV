@@ -6,6 +6,7 @@
 package controller;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -84,7 +85,7 @@ public class EditingWindowController {
                             .setTotal_price(_parking.getParkingspace()[parkingspace.getParking_space_number()]
                                     .getTypePrice(TypeOfVehicule.valueOf(_view.getTypevalue().getValue().toString())));
                     _parking.getParkingspace()[parkingspace.getParking_space_number()].setStatus(ParkingSpaceStatus.OCCUPIED);
-                    
+
                 }
                 HomeWindowController controller = new HomeWindowController(
                         _parking, scene, stage, _path_text);
@@ -140,20 +141,26 @@ public class EditingWindowController {
         file.mkdir();
         File datasave = new File(_path_text + "/tickets/" + namedirectory);
         datasave.mkdir();
-        String carplate = parkingspace.getVehicule().getNumberplate()+"_gol";
-        File tickettosave=new File(_path_text + "/tickets/" + namedirectory+"/"+carplate+".txt");
-        
-       
-            try {
-                tickettosave.createNewFile();
-            } catch (IOException ex) {
-                System.out.println("ERROR"+ex.getMessage());
-            }
-        
+        String namefile = parkingspace.getVehicule().getNumberplate() + r.getMovie_ticket_type_extension();
+        File tickettosave = new File(_path_text + "/tickets/" + namedirectory + "/" + namefile + ".txt");
 
+        try {
+            setTicket(tickettosave, r);
+            tickettosave.createNewFile();
+        } catch (IOException ex) {
+            System.out.println("ERROR" + ex.getMessage());
+        }
 
-        System.out.println("Recipess : " + r.toString());
+    }
 
+    private void setTicket(File ticket, Receipt receipt) {
+        try {
+            FileWriter tickettosavewithvalue = new FileWriter(ticket);
+            tickettosavewithvalue.write(receipt.toString());
+            tickettosavewithvalue.close();
+        } catch (IOException ex) {
+            System.out.println("ERROR" + ex.getMessage());
+        }
     }
 
 }
