@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package HelloParkMain;
 
 import controller.HelloParkController;
@@ -12,8 +7,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- *
- * @author Marwa
+ * /Class main, servant à lancer l'application La méthode star instancie un
+ * composant Anchorpane Ce composant va être modifié par la suite pour afficher
+ * le contenu adéquat grace à l'objet main Controller MainController représente
+ * le contrôler principal
  */
 public class main extends Application {
 

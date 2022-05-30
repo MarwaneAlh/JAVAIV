@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import java.io.BufferedReader;
@@ -10,25 +5,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javax.lang.model.element.Element;
 import model.Parking;
 import model.ParkingSpaceStatus;
 import model.TypeOfVehicule;
@@ -37,30 +21,47 @@ import model.Vehicule;
 import view.HomeWindowView;
 
 /**
+ * Controller de la fenêtre qui affiche les places de parking
  *
- * @author Marwa
  */
 public class HomeWindowController {
 
+    /*
+    *Attribut parking ,correspondant à l'objet parking 
+    *La fenetre est également stocker comme _view
+    *L'attribut whichPlace sert a savoir quel place de parking 
+    *Le path correspondant au path du dossier des tickets
+    *L
+     */
     private Parking _parking;
     private HomeWindowView _view;
     private int whichPlace;
     private String _path_text;
-    private boolean modesim;
 
-    public HomeWindowController(Parking _parking, Scene scene, Stage stage, String _path, boolean modesim) {
+    /*
+    Constructeur du controller avec les objets de l'applications
+    *Methode open qui permet d'ouvrir la fenetre
+     */
+    public HomeWindowController(Parking _parking, Scene scene, Stage stage, String _path) {
         this._parking = _parking;
         this._path_text = _path;
-        this.modesim = modesim;
         _view = new HomeWindowView(_parking);
         openEditWindow(scene, stage);
 
     }
 
+    /*
+    *getter de la fenetre
+     */
     public HomeWindowView getViewController() {
         return _view;
     }
 
+    /*
+    *Methode qui lance la fenetre d'edition dans la scene 
+    *suite au clique sur la place de parking Permet également de récuperer quel place
+    *A été cliqué
+     */
     public void openEditWindow(Scene scene, Stage stage) {
 
         for (Node node : _view.getGrid().getChildren()) {
@@ -89,6 +90,14 @@ public class HomeWindowController {
 
     }
 
+    /*
+    *Fonction pour gérer le fichier de simulation
+    *Le fichier est récupérer grace au chemin d'absolue
+    *Le fichier est ensuite ouvert et traité
+    *Pour le traiter des fonctions de convertions de la ligne de text
+    *en un objet traitable au seins du parking ont été utilisé
+    *pour finir modification du parking 
+     */
     public void simulationfile(Scene scene) throws FileNotFoundException, IOException, InterruptedException {
 
         File absoulepath = new File(".");
@@ -126,6 +135,9 @@ public class HomeWindowController {
         readsim.close();
     }
 
+    /*
+    *Methode pour récupérer le temps du fichier de simulation
+     */
     private int getTimeSimeString(String line) {
         int time;
         Boolean flag = Character.isDigit(line.charAt(1));
@@ -138,6 +150,9 @@ public class HomeWindowController {
         return time;
     }
 
+    /*
+    *Methode pour récupérer le type de vehicule du fichier de simulation
+     */
     private String getTypeVehicule(String line) {
         String vehicule_type = line.substring(2, line.length() - 3);
         if (vehicule_type.charAt(0) == ',') {
@@ -146,10 +161,17 @@ public class HomeWindowController {
         return vehicule_type;
     }
 
+    /*
+    *Methode pour récupérer la plaque d'immatriculation du fichier de simulation
+     */
     private String getPlateNumber(String line) {
         return line.substring(line.length() - 2, line.length());
     }
 
+    /*
+    *Methode pour convertir le type de vehicule text en un type de vehicule 
+    *de l'enumeration pour le traiter dans le parking
+     */
     private TypeOfVehicule getSimeVehicule(String type) {
         switch (type) {
             case "moto":

@@ -17,7 +17,7 @@ import javafx.scene.text.Font;
 
 /**
  *
- * @author Marwa
+ * Class de la fenetre de lancment
  */
 public class LaunchWindowView {
 
@@ -29,6 +29,9 @@ public class LaunchWindowView {
     private Button _save_btn;
     private Button launchsimfile;
 
+    /*
+    *Constructeur de la fenetre 
+     */
     public LaunchWindowView() {
         AnchorPane anchor = new AnchorPane();
         initializeComponent();
@@ -36,28 +39,44 @@ public class LaunchWindowView {
 
     }
 
+    /*
+    *Getter du bouton choisis
+     */
     public Button getChoose_path_btn() {
         return _choose_path_btn;
     }
 
+    /*
+    *Getter du bouton choisi
+     */
     public Button getSave_btn() {
         return _save_btn;
     }
 
+    /*
+    *Getter du texfield contenant le path 
+     */
     public TextField getPath() {
         return _path;
     }
 
+    /*
+    *Getter de la fenetre de la view
+     */
     public Parent getView() {
         return view;
     }
 
+    /*
+    *Getter du bouton lancement avec simulation
+     */
     public Button getLaunchsimfile() {
         return launchsimfile;
     }
-    
-    
 
+    /*
+    *Methode qui initialise tout les composants de la fenetre
+     */
     private void initializeComponent() {
         _title = new Label("Parking Helb 2.0");
         _title.setPrefSize(1000, 100);
@@ -96,9 +115,12 @@ public class LaunchWindowView {
 
     }
 
+    /*
+    *Methode pour generer une view avec tout les composants de la fenetre
+     */
     private AnchorPane createLaunchView() {
         AnchorPane pane = new AnchorPane();
-        HBox btntool = new HBox(_choose_path_btn, _save_btn,launchsimfile);
+        HBox btntool = new HBox(_choose_path_btn, _save_btn, launchsimfile);
         VBox allcontent = new VBox(_title, _explanation, _path, btntool);
         pane.getChildren().add(allcontent);
         return pane;

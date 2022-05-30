@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import javafx.geometry.Insets;
@@ -21,7 +16,7 @@ import model.Vehicule;
 
 /**
  *
- * @author Marwa
+ * Class qui correpond a la fenetre d'edtion de place de parking
  */
 public class EditingWindowView {
 
@@ -31,58 +26,100 @@ public class EditingWindowView {
     private ComboBox _typevalue;
     private TextField numberplate;
 
+    /*
+    *Constructeur de la fenetre 
+     */
     public EditingWindowView() {
         view = createView();
     }
 
+    /*
+    *Getter de la combobox contenant le type de vehicule
+     */
     public ComboBox getTypevalue() {
         return _typevalue;
     }
 
+    /*
+    *Getter de la fenetre view
+     */
     public Parent getEditView() {
         return view;
     }
 
+    /*
+    *Getter du boutton qui libere la place de parking
+     */
     public Button getFreePlaceButton() {
         return freePlaceButton;
     }
 
+    /*
+    *Getter du boutton qui quitte la fenetre
+     */
     public Button getQuitbutton() {
         return quitbutton;
     }
 
+    /*
+    *Getter du titre de la fenetre
+     */
     public Label getTitle() {
         return _title;
     }
 
+    /*
+    *Getter du status du vehicule
+     */
     public Label getStatus() {
         return _status;
     }
 
+    /*
+    *Getter du type de vehicule
+     */
     public Label getType() {
         return _type;
     }
 
+    /*
+    *Getter de la plaque d'immatriculation
+     */
     public Label getNumberplate() {
         return _numberplate;
     }
 
+    /*
+    *Getter du prix total du vehicule
+     */
     public Label getTotal_price() {
         return _total_price;
     }
 
+    /*
+    *Getter du bouton changement de type de vehicule
+     */
     public Button getTypechange() {
         return typechange;
     }
 
+    /*
+    *Getter du numero de plaque
+     */
     public Button getNumberplatechange() {
         return numberplatechange;
     }
 
+    /*
+    *Getter du textfield contenant le numero de plaque
+     */
     public TextField getNumberPlateTextField() {
         return numberplate;
     }
 
+    /*
+    *Methode modulaire pour creer la view avec tout ses composants
+     */
     private AnchorPane createView() {
         AnchorPane anchor = new AnchorPane();
 
@@ -121,6 +158,9 @@ public class EditingWindowView {
 
     }
 
+    /*
+    *Mthode qui modifie la combobox
+     */
     private void editComboBox() {
         _typevalue = new ComboBox();
         _typevalue.setDisable(true);
@@ -134,6 +174,9 @@ public class EditingWindowView {
 
     }
 
+    /*
+    *Methode qui modifie le bouton freePlaceButton avec du style et un text
+     */
     private void editButtonFreeUp() {
         freePlaceButton = new Button("Libérer l'emplacement");
         freePlaceButton.setPrefSize(500, 50);
@@ -145,6 +188,9 @@ public class EditingWindowView {
                 + "-fx-background-color: #D3E9D4; ");
     }
 
+    /*
+    *Methode qui edit le bouton quit
+     */
     private void editButtonQuit() {
         quitbutton = new Button("Quitter");
         quitbutton.setPrefSize(200, 50);
@@ -155,6 +201,9 @@ public class EditingWindowView {
                 + "-fx-border-color: #BA676F;");
     }
 
+    /*
+    *Methode qui applique style sur titre
+     */
     private void editTitle() {
         _title = new Label("Emplacement : ");
         _title.setPrefSize(1000, 100);
@@ -163,12 +212,18 @@ public class EditingWindowView {
 
     }
 
+    /*
+    *Methode pour creer automatiquement label avec un certain style
+     */
     private Label createLabel(String text) {
         Label toreturn = new Label(text);
         toreturn.setFont(new Font("Calibri", 30));
         return toreturn;
     }
 
+    /*
+    *Methode pour edit le bouton editVehicule
+     */
     private Button editButtonEditDataVehicule(String text) {
         Button btn = new Button(text);
         btn.setFont(new Font("Calibri", 20));

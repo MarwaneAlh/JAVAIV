@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.text.DateFormat;
@@ -12,10 +7,25 @@ import java.util.Random;
 
 /**
  *
- * @author Marwa
+ * Class de l'objet Receipt qui est le ticket à imprimé
  */
 public class Receipt {
 
+    /*
+    *_todyadate est la date actuelle
+    *_place number est le numero de la place
+    *type_vehicule est le type du vehicule
+    *price est le prix de la place
+    *_price_reducted est le prix aprés la promo
+    *_percentage_offer est le pourcentage de la promo
+    *_offer est le libélé de la promo
+    *platenumber est la plaque d'immatriculation
+    *_movie_ticket_type_extension est l'extension du fichier du ticket
+    *_movie_code est le code promo du ciné
+    *_movie_ticket_type est le type du ticket
+    *_movie_ticket_value est le pourentage par rapport au type de ticket
+    *_movie_bonus_game est le jeu en fin de ticket
+     */
     private String _today_date;
     private int _place_number;
     private TypeOfVehicule _type_vehicule;
@@ -30,6 +40,9 @@ public class Receipt {
     private int _movie_ticket_value;
     private String _movie_bonus_game;
 
+    /*
+    *Constructeur de l'objet receipt instancie le ticket avec toutes ces valeurs
+     */
     public Receipt(ParkingSpace _parkingspace) {
         Date date = new Date();
         DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
@@ -47,14 +60,24 @@ public class Receipt {
 
     }
 
+    /*
+    *Getter de la date actuelle
+     */
     public String getToday_date() {
         return _today_date;
     }
 
+    /*
+    *Getter de l'extension de fichier a dicter avant .Txt
+     */
     public String getMovie_ticket_type_extension() {
         return _movie_ticket_type_extension;
     }
 
+    /*
+    *Methode qui permet d'avoir le libéllé et le pourcentage de la promo
+    *a appliqué par rapport au jours ainsi que le type de vehicule
+     */
     private void getDayOffer(Date _date) {
         DateFormat days = new SimpleDateFormat("EEEE");
         String day = days.format(_date);
@@ -93,11 +116,17 @@ public class Receipt {
 
     }
 
+    /*
+    *Methode qui calule le nouveau prix aprés promo
+     */
     private void calculateTotalPrice() {
         this._price_reducted = this._price - (((double) this._price / 100) * _percentage_offer);
 
     }
 
+    /*
+    *Genere de maniere aléatoire le type du ticket
+     */
     private void generateTicketType() {
         String[] mixed_type = {"_std", "_sil", "_gol"};
         Random r = new Random();
@@ -105,12 +134,18 @@ public class Receipt {
 
     }
 
+    /*
+    *Genere de maniere aleatoire le code promo
+     */
     private void generatePromotionalCode() {
         Random r = new Random();
         int number = r.nextInt(3000 - 0);
         _movie_code = "BTF" + number;
     }
 
+    /*
+    *Genere le pourcentage en fonction du type de ticket
+     */
     private void generateMoviePromo() {
         int[] std = {5, 10};
         int[] slv = {10, 15};
@@ -137,6 +172,10 @@ public class Receipt {
         }
     }
 
+    /*
+    *Genere le bonus qui correspond soit au tableau 3x3 soit au deux symboles
+    *Pour finir verifie si condition gagnant et augment la valeur de la promo
+     */
     private void generateMovieBonusGame() {
         String game;
         String[] symbole = {"O", "X", "P"};
@@ -168,7 +207,7 @@ public class Receipt {
                 }
                 if (checkMovieBonusGold(bonusgold)) {
                     _movie_ticket_value = _movie_ticket_value * 2;
-                     _movie_bonus_game += "\nFélicication Bonus !";
+                    _movie_bonus_game += "\nFélicication Bonus !";
                 }
                 break;
             case "NONE":
@@ -177,6 +216,9 @@ public class Receipt {
         }
     }
 
+    /*
+    *Methode servant à parcourir le tableau 3x3 du ticket bonus gold
+     */
     private boolean checkMovieBonusGold(String[][] bonus) {
         for (int i = 0; i < bonus.length - 1; i++) {
             for (int j = 0; j < bonus.length - 1; j++) {
@@ -193,6 +235,10 @@ public class Receipt {
         return false;
     }
 
+    /*
+    *Methode d'affichage du ticket qui va etre utilisé pour la géneration textuelle
+    *du ticket
+     */
     @Override
     public String toString() {
 

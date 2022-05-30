@@ -20,36 +20,60 @@ import model.ParkingSpaceStatus;
 
 /**
  *
- * @author Marwa
+ * Class de la fenetre qui affiche le parking
  */
 public class HomeWindowView {
 
+    /*
+    *grid= la grille qui va stocker le parking sous forme de boutton grid
+    *title correspond au titre de la fenetre
+    *row correspond au nombre de ligne voulue pour l'affichage du parking
+    *view correspond a la fenetre
+     */
     private GridPane _grid;
     private Label _title;
     private int _row = 4;
     private Parent view;
 
+    /*
+    *Constructeur de la fenetre
+     */
     public HomeWindowView(Parking parking) {
         view = createHomeView(parking);
     }
 
+    /*
+    *Getter de la view
+     */
     public Parent getView() {
 
         return view;
     }
 
+    /*
+    *Getter de la grille de boutton
+     */
     public GridPane getGrid() {
         return _grid;
     }
 
+    /*
+    *Getter du titre de la fenetre
+     */
     public Label getTitle() {
         return _title;
     }
 
+    /*
+    *Setter de la view
+     */
     public void setView(Parent view) {
         this.view = view;
     }
 
+    /*
+    *Fonction qui creer la view avec tout ses composants
+     */
     public AnchorPane createHomeView(Parking parking) {
         AnchorPane anchor = new AnchorPane();
         initializeComponent();
@@ -63,6 +87,9 @@ public class HomeWindowView {
 
     }
 
+    /*
+    *Methode qui initialise les composants de la fenetre
+     */
     public void initializeComponent() {
         _grid = new GridPane();
         _title = new Label("Parking Helb 2.0");
@@ -72,6 +99,9 @@ public class HomeWindowView {
 
     }
 
+    /*
+    *Methode qui créer dynbamiquement le parking sous forme de grille de boutton
+     */
     public void createGrid(GridPane grid, Parking parking) {
 
         int column = parking.getSizeParking();
@@ -106,6 +136,10 @@ public class HomeWindowView {
 
     }
 
+    /*
+    *Methode qui change la couleure des bouttons en fonction du type de vehicule
+    *sur la place de parking
+     */
     private void colorParkingPlace(Button place, ParkingSpace parking) {
         if (parking.getStatus() == ParkingSpaceStatus.OCCUPIED) {
             place.setText(String.valueOf(parking.getParking_space_number())
@@ -134,6 +168,10 @@ public class HomeWindowView {
 
     }
 
+    /*
+    *Fonction qui update la view , utile ici uniquement pour le fichier
+    * de simulation
+     */
     public void updateview(Parking _parking) {
         _grid.getChildren().clear();
         createGrid(_grid, _parking);

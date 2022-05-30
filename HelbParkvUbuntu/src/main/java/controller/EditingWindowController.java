@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import java.io.File;
@@ -27,15 +22,25 @@ import model.TypeOfVehicule;
 import view.EditingWindowView;
 
 /**
+ * Class editincontroller, correspondant au controller la fenêtre editingwindow
+ * Se controller gère toutes les interactons de la fenêtre editingwindow
  *
- * @author Marwa
  */
 public class EditingWindowController {
 
+    /*
+    *Attribut parking servant à stocker l'objet parking qui est le contenant des places de parking
+    *Attribut parking servant à stocker l'objet parking qui est le contenant des places de parking
+    *Le string _path text ici correspond au lien ou va être stocké le dossier des tickets
+     */
     private Parking _parking;
     private EditingWindowView _view;
     private String _path_text;
 
+    /*
+    *Constructeur de la Class tous les composants ainsi que 
+    *les fonctions d'interactions sont instancié ici.
+     */
     public EditingWindowController(Parking _parking, ParkingSpace parkingspace, Scene scene, Stage stage, String _path) {
         this._parking = _parking;
         this._view = new EditingWindowView();
@@ -48,14 +53,24 @@ public class EditingWindowController {
 
     }
 
+    /*
+    Constructeur avec le lien il va être utile afin de pouvoir utiliser 
+    *les méthodes de la Class sans créer d'objet avec trop de paramètres.
+     */
     public EditingWindowController(String _path) {
         _path_text = _path;
     }
 
+    /*
+    Guetteur pour récupérer la view de la classe
+     */
     public EditingWindowView getView() {
         return _view;
     }
 
+    /*
+    Méthode qui gère l'interaction du changement du type du vehicule.
+     */
     private void typechangeButton() {
         _view.getTypechange().setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -74,6 +89,11 @@ public class EditingWindowController {
 
     }
 
+    /*
+    Méthode qui gère l'interaction du bouton quitté dans la fenêtre d'édition 
+    À la suite elle va modifier les attributs de la place de parking avec les informations de la fenêtre d'édition.
+    Pour finir affichage de la scene avec le parking
+     */
     private void quitButton(Scene scene, Stage stage, ParkingSpace parkingspace) {
         _view.getQuitbutton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -92,7 +112,7 @@ public class EditingWindowController {
 
                 }
                 HomeWindowController controller = new HomeWindowController(
-                        _parking, scene, stage, _path_text, false);
+                        _parking, scene, stage, _path_text);
                 Scene scene = new Scene(controller.getViewController().getView());
                 stage.setScene(scene);
                 stage.show();
@@ -101,6 +121,11 @@ public class EditingWindowController {
         });
     }
 
+    /*
+    Méthode qui gere l'action du bouton libérer place de parking 
+    *Elle modifie les attributs des places de parking en paramètre pour lui attribue les valeurs d'une place vide
+    *Elle va également grace à la fonction printTicket , sauvegarder le ticket dans un dossier. 
+     */
     private void freeSpaceButton(ParkingSpace parkingspace, Stage stage, Scene scene) {
         _view.getFreePlaceButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -108,7 +133,7 @@ public class EditingWindowController {
                 printTicket(parkingspace);
                 _parking.getParkingspace()[parkingspace.getParking_space_number()].freeParkingPlace();
                 HomeWindowController controller = new HomeWindowController(
-                        _parking, scene, stage, _path_text, false);
+                        _parking, scene, stage, _path_text);
                 Scene scene = new Scene(controller.getViewController().getView());
                 stage.setScene(scene);
                 stage.show();
@@ -116,6 +141,9 @@ public class EditingWindowController {
         });
     }
 
+    /*
+    Méthode qui va afficher les propriétés de l'objet place de parking dans les composants graphiques de la fenêtre d'édition.
+     */
     private void editAllComponentWithParkingSpace(ParkingSpace parkingspace) {
         _view.getTitle().setText("Emplacement : " + parkingspace.getParking_space_number());
         _view.getStatus().setText("Status : " + parkingspace.getStatus());
@@ -127,6 +155,10 @@ public class EditingWindowController {
         _view.getNumberPlateTextField().setEditable(false);
     }
 
+    /*
+    Fonction qui edit le numero d'immatriculation de la place de parking
+    Suite au clique sur bouton Editer place de parking
+     */
     private void editNumberPlateButtonOnclick() {
         _view.getNumberplatechange().setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -136,6 +168,13 @@ public class EditingWindowController {
         });
     }
 
+    /*
+    Fonction qui va générer le ticket de la place de parking
+    Il génère un objet receipt qui possède toutes les propriétés du ticket.
+    Pour finir il génère un dossier Tickets dans le path choisi au début
+    Le dossier comprend alors les tickets dans un sous-dossier à la date du jour
+    Ticket composé du type de  ticket et de plaque d'immatriculation.
+     */
     public void printTicket(ParkingSpace parkingspace) {
 
         Receipt r = new Receipt(parkingspace);
@@ -157,6 +196,10 @@ public class EditingWindowController {
 
     }
 
+    /*
+    Fonction pour modifier le contenue du ticket
+    Créer pour modularité du code
+     */
     private void setTicket(File ticket, Receipt receipt) {
         try {
             FileWriter tickettosavewithvalue = new FileWriter(ticket);

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import javafx.scene.Scene;
@@ -11,16 +6,20 @@ import model.Parking;
 
 /**
  *
- * @author Marwa
+ * Class correspondant au controller principal Il instancie l'objet principal,
+ * une seule foix ici Permets de mieux gérer l'utilisation de cet objet
  */
 public class HelloParkController {
 
     private LaunchWindowController _homecontroller;
     private Parking _parking;
 
+    /*
+    Constructeur de la class
+     */
     public HelloParkController(Stage stage, Scene scene) {
         _parking = new Parking();
-        _homecontroller = new LaunchWindowController(scene, stage,_parking);
+        _homecontroller = new LaunchWindowController(scene, stage, _parking);
         Scene s = new Scene(_homecontroller.getViewController().getView());
         stage.setScene(s);
         stage.show();
