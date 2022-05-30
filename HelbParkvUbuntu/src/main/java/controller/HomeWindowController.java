@@ -107,7 +107,7 @@ public class HomeWindowController {
 
             System.out.println("Time: " + time + " type : " + vehicule_type
                     + " Plaque " + vehicule_plate_number);
-            _parking.getParkingspace()[cpt].setVehicule(new Vehicule(TypeOfVehicule.CAR, vehicule_plate_number));
+            _parking.getParkingspace()[cpt].setVehicule(new Vehicule(getSimeVehicule(vehicule_type), vehicule_plate_number));
             _parking.getParkingspace()[cpt].setStatus(ParkingSpaceStatus.OCCUPIED);
             System.out.println(_parking.getParkingspace()[cpt].getStatus());
             Platform.runLater(() -> {
@@ -117,5 +117,20 @@ public class HomeWindowController {
         }
         br.close();
         readsim.close();
+    }
+
+    private TypeOfVehicule getSimeVehicule(String type) {
+        switch (type) {
+            case "moto":
+                return TypeOfVehicule.MOTORBIKE;
+
+            case "camionette":
+                return TypeOfVehicule.TRUCK;
+
+            case "voiture":
+                return TypeOfVehicule.CAR;
+
+        }
+        return TypeOfVehicule.NONE;
     }
 }
