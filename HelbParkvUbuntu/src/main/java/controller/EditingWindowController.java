@@ -75,7 +75,7 @@ public class EditingWindowController {
             @Override
             public void handle(ActionEvent event) {
 
-                if (!_view.getNumberplate().getText().equals("none") && !_view.getTypevalue().getValue().equals("NONE")) {
+                if (!_view.getNumberplate().getText().equals("XX") && !_view.getTypevalue().getValue().equals("NONE")) {
 
                     _parking.getParkingspace()[parkingspace.getParking_space_number()]
                             .getVehicule().setNumberplate(_view.getNumberPlateTextField().getText());
@@ -88,7 +88,7 @@ public class EditingWindowController {
 
                 }
                 HomeWindowController controller = new HomeWindowController(
-                        _parking, scene, stage, _path_text);
+                        _parking, scene, stage, _path_text,false);
                 Scene scene = new Scene(controller.getViewController().getView());
                 stage.setScene(scene);
                 stage.show();
@@ -104,7 +104,7 @@ public class EditingWindowController {
                 printTicket(parkingspace);
                 _parking.getParkingspace()[parkingspace.getParking_space_number()].freeParkingPlace();
                 HomeWindowController controller = new HomeWindowController(
-                        _parking, scene, stage, _path_text);
+                        _parking, scene, stage, _path_text,false);
                 Scene scene = new Scene(controller.getViewController().getView());
                 stage.setScene(scene);
                 stage.show();

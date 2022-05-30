@@ -5,6 +5,9 @@
  */
 package controller;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -23,13 +26,13 @@ public class LaunchWindowController {
     private LaunchWindowView _view;
     private Parking _parking;
 
-
     public LaunchWindowController(Scene scene, Stage stage, Parking _parking) {
         _view = new LaunchWindowView();
         this._parking = _parking;
         _view.getPath().setEditable(false);
         chooseBtn();
         openHomeWindow(scene, stage, _parking);
+        launchSimFileBtn(scene, stage, _parking);
 
     }
 
@@ -58,10 +61,35 @@ public class LaunchWindowController {
                 if (!_view.getPath().getText().isEmpty()
                         && !_view.getPath().getText().equals("Veuillez d'abord choisir un emplacement!")) {
                     HomeWindowController controller = new HomeWindowController(
-                            _parking, scene, stage,_view.getPath().getText());
+                            _parking, scene, stage, _view.getPath().getText(), false);
                     Scene scene = new Scene(controller.getViewController().getView());
                     stage.setScene(scene);
                     stage.show();
+
+                } else {
+                    _view.getPath().setText("Veuillez d'abord choisir un emplacement!");
+                }
+            }
+        });
+    }
+
+    private void launchSimFileBtn(Scene scene, Stage stage, Parking _parking) {
+        _view.getLaunchsimfile().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (!_view.getPath().getText().isEmpty()
+                        && !_view.getPath().getText().equals("Veuillez d'abord choisir un emplacement!")) {
+                    HomeWindowController controller = new HomeWindowController(
+                            _parking, scene, stage, _view.getPath().getText(), true);
+                    Scene scene = new Scene(controller.getViewController().getView());
+                    stage.setScene(scene);
+                    stage.show();
+                    new java.util.Timer().schedule(new java.util.TimerTask() {
+                        @Override
+                        public void run() {
+                            controller.simulationfile(scene);
+                        }
+                    }, 2000);
 
                 } else {
                     _view.getPath().setText("Veuillez d'abord choisir un emplacement!");

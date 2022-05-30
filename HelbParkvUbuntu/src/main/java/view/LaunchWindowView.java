@@ -27,6 +27,7 @@ public class LaunchWindowView {
     private Button _choose_path_btn;
     private Label _explanation;
     private Button _save_btn;
+    private Button launchsimfile;
 
     public LaunchWindowView() {
         AnchorPane anchor = new AnchorPane();
@@ -46,11 +47,16 @@ public class LaunchWindowView {
     public TextField getPath() {
         return _path;
     }
-    
 
     public Parent getView() {
         return view;
     }
+
+    public Button getLaunchsimfile() {
+        return launchsimfile;
+    }
+    
+    
 
     private void initializeComponent() {
         _title = new Label("Parking Helb 2.0");
@@ -65,7 +71,7 @@ public class LaunchWindowView {
         _explanation.setFont(new Font("Calibri", 20));
 
         _choose_path_btn = new Button("Choisi");
-        _choose_path_btn.setFont(new Font("Calibri", 40));
+        _choose_path_btn.setFont(new Font("Calibri", 30));
         _choose_path_btn.setPrefSize(300, 10);
         _choose_path_btn.setStyle("-fx-border-radius: 5px;"
                 + " -fx-border-width: 2px;"
@@ -73,9 +79,17 @@ public class LaunchWindowView {
                 + "-fx-border-color: #9DACC8;");
 
         _save_btn = new Button("Sauvegarder");
-        _save_btn.setFont(new Font("Calibri", 40));
+        _save_btn.setFont(new Font("Calibri", 30));
         _save_btn.setPrefSize(300, 10);
         _save_btn.setStyle("-fx-border-radius: 5px;"
+                + " -fx-border-width: 2px;"
+                + "-fx-background-color: #D9E8FB; "
+                + "-fx-border-color: #9DACC8;");
+
+        launchsimfile = new Button("Lancer simulation");
+        launchsimfile.setFont(new Font("Calibri", 28));
+        launchsimfile.setPrefSize(300, 10);
+        launchsimfile.setStyle("-fx-border-radius: 5px;"
                 + " -fx-border-width: 2px;"
                 + "-fx-background-color: #D9E8FB; "
                 + "-fx-border-color: #9DACC8;");
@@ -84,12 +98,10 @@ public class LaunchWindowView {
 
     private AnchorPane createLaunchView() {
         AnchorPane pane = new AnchorPane();
-        HBox btntool = new HBox(_choose_path_btn, _save_btn);
+        HBox btntool = new HBox(_choose_path_btn, _save_btn,launchsimfile);
         VBox allcontent = new VBox(_title, _explanation, _path, btntool);
         pane.getChildren().add(allcontent);
         return pane;
     }
-    
-    
 
 }

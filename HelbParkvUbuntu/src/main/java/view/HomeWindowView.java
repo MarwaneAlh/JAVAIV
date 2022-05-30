@@ -50,7 +50,7 @@ public class HomeWindowView {
         this.view = view;
     }
 
-    private AnchorPane createHomeView(Parking parking) {
+    public AnchorPane createHomeView(Parking parking) {
         AnchorPane anchor = new AnchorPane();
         initializeComponent();
         createGrid(_grid, parking);
@@ -77,11 +77,11 @@ public class HomeWindowView {
         int column = parking.getSizeParking();
         if (column % _row == 0) {
             column = column / _row;
-            System.out.println("entier");
+
         } else {
-            System.out.println("col " + column);
+
             column = (column / _row) + 1;
-            System.out.println("div " + column);
+
         }
 
         grid.setPadding(new Insets(100, 10, 10, 10));
@@ -131,6 +131,12 @@ public class HomeWindowView {
             place.setStyle("-fx-background-color: #D3E9D4; "
                     + "-fx-border-color: #9AB588");
         }
+
+    }
+
+    public void updateview(Parking _parking) {
+        _grid.getChildren().clear();
+        createGrid(_grid, _parking);
 
     }
 

@@ -137,7 +137,7 @@ public class EditingWindowView {
     private void editButtonFreeUp() {
         freePlaceButton = new Button("Libérer l'emplacement");
         freePlaceButton.setPrefSize(500, 50);
-        freePlaceButton.setFont(new Font("Calibri", 40));
+        freePlaceButton.setFont(new Font("Calibri", 30));
 
         freePlaceButton.setStyle("-fx-border-radius: 5px;"
                 + " -fx-border-width: 2px;"
@@ -148,7 +148,7 @@ public class EditingWindowView {
     private void editButtonQuit() {
         quitbutton = new Button("Quitter");
         quitbutton.setPrefSize(200, 50);
-        quitbutton.setFont(new Font("Calibri", 40));
+        quitbutton.setFont(new Font("Calibri", 30));
         quitbutton.setStyle("-fx-border-radius: 5px;"
                 + " -fx-border-width: 2px;"
                 + "-fx-background-color: #F6CDC9; "

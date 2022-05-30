@@ -20,9 +20,9 @@ public class Parking {
         ParkingSpace[] parking = new ParkingSpace[_sizeParking];
         for (int i = 0; i < _sizeParking; i++) {
             parking[i] = new ParkingSpace(new Date(2, 2, 1998),
-                    i, ParkingSpaceStatus.OCCUPIED,
-                    new Vehicule(TypeOfVehicule.MOTORBIKE,
-                            "C" + i));
+                    i, ParkingSpaceStatus.FREE,
+                    new Vehicule(TypeOfVehicule.NONE,
+                            "XX" ));
         }
         this._parkingspace = parking;
     }
