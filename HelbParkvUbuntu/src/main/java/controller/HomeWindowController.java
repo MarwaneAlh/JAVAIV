@@ -53,6 +53,7 @@ public class HomeWindowController {
         this._path_text = _path;
         this.modesim = modesim;
         _view = new HomeWindowView(_parking);
+        openEditWindow(scene, stage);
 
     }
 
@@ -85,6 +86,7 @@ public class HomeWindowController {
                 }
             });
         }
+
     }
 
     public void simulationfile(Scene scene) throws FileNotFoundException, IOException, InterruptedException {
@@ -99,24 +101,53 @@ public class HomeWindowController {
         String line;
         int cpt = 0;
         while ((line = br.readLine()) != null) {
-
-            int time = Character.getNumericValue(line.charAt(0));
-            String vehicule_type = line.substring(2, line.length() - 3);
-            String vehicule_plate_number = line.substring(line.length() - 2, line.length());
+            if (cpt == 20) {
+                cpt = 0;
+            }
+            int time = getTimeSimeString(line);
+            String vehicule_type = getTypeVehicule(line);
+            String vehicule_plate_number = getPlateNumber(line);
             TimeUnit.SECONDS.sleep(time);
-
-            System.out.println("Time: " + time + " type : " + vehicule_type
-                    + " Plaque " + vehicule_plate_number);
-            _parking.getParkingspace()[cpt].setVehicule(new Vehicule(getSimeVehicule(vehicule_type), vehicule_plate_number));
-            _parking.getParkingspace()[cpt].setStatus(ParkingSpaceStatus.OCCUPIED);
-            System.out.println(_parking.getParkingspace()[cpt].getStatus());
+            if (_parking.getParkingspace()[cpt].getStatus() == ParkingSpaceStatus.OCCUPIED) {
+                _parking.getParkingspace()[cpt].setVehicule(new Vehicule(getSimeVehicule(vehicule_type), vehicule_plate_number));
+                EditingWindowController c = new EditingWindowController(_path_text);
+                c.printTicket(_parking.getParkingspace()[cpt]);
+            } else {
+                _parking.getParkingspace()[cpt].setVehicule(new Vehicule(getSimeVehicule(vehicule_type), vehicule_plate_number));
+                _parking.getParkingspace()[cpt].setStatus(ParkingSpaceStatus.OCCUPIED);
+            }
             Platform.runLater(() -> {
                 _view.updateview(_parking);
             });
+
             cpt++;
         }
         br.close();
         readsim.close();
+    }
+
+    private int getTimeSimeString(String line) {
+        int time;
+        Boolean flag = Character.isDigit(line.charAt(1));
+        if (flag) {
+            time = Character.getNumericValue(line.charAt(0) + line.charAt(1));
+        } else {
+            time = Character.getNumericValue(line.charAt(0));
+
+        }
+        return time;
+    }
+
+    private String getTypeVehicule(String line) {
+        String vehicule_type = line.substring(2, line.length() - 3);
+        if (vehicule_type.charAt(0) == ',') {
+            vehicule_type = vehicule_type.substring(1, vehicule_type.length());
+        }
+        return vehicule_type;
+    }
+
+    private String getPlateNumber(String line) {
+        return line.substring(line.length() - 2, line.length());
     }
 
     private TypeOfVehicule getSimeVehicule(String type) {

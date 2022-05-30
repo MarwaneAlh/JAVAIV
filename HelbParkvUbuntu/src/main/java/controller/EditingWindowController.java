@@ -48,6 +48,10 @@ public class EditingWindowController {
 
     }
 
+    public EditingWindowController(String _path) {
+        _path_text = _path;
+    }
+
     public EditingWindowView getView() {
         return _view;
     }
@@ -88,7 +92,7 @@ public class EditingWindowController {
 
                 }
                 HomeWindowController controller = new HomeWindowController(
-                        _parking, scene, stage, _path_text,false);
+                        _parking, scene, stage, _path_text, false);
                 Scene scene = new Scene(controller.getViewController().getView());
                 stage.setScene(scene);
                 stage.show();
@@ -104,7 +108,7 @@ public class EditingWindowController {
                 printTicket(parkingspace);
                 _parking.getParkingspace()[parkingspace.getParking_space_number()].freeParkingPlace();
                 HomeWindowController controller = new HomeWindowController(
-                        _parking, scene, stage, _path_text,false);
+                        _parking, scene, stage, _path_text, false);
                 Scene scene = new Scene(controller.getViewController().getView());
                 stage.setScene(scene);
                 stage.show();
@@ -132,7 +136,7 @@ public class EditingWindowController {
         });
     }
 
-    private void printTicket(ParkingSpace parkingspace) {
+    public void printTicket(ParkingSpace parkingspace) {
 
         Receipt r = new Receipt(parkingspace);
         String date = r.getToday_date();

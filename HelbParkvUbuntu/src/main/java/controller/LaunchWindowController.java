@@ -87,7 +87,13 @@ public class LaunchWindowController {
                     new java.util.Timer().schedule(new java.util.TimerTask() {
                         @Override
                         public void run() {
-                            controller.simulationfile(scene);
+                            try {
+                                controller.simulationfile(scene);
+                            } catch (IOException ex) {
+                                Logger.getLogger(LaunchWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(LaunchWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         }
                     }, 2000);
 

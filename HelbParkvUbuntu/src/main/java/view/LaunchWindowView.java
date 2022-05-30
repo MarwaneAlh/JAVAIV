@@ -78,7 +78,7 @@ public class LaunchWindowView {
                 + "-fx-background-color: #D9E8FB; "
                 + "-fx-border-color: #9DACC8;");
 
-        _save_btn = new Button("Sauvegarder");
+        _save_btn = new Button("Lancer classique");
         _save_btn.setFont(new Font("Calibri", 30));
         _save_btn.setPrefSize(300, 10);
         _save_btn.setStyle("-fx-border-radius: 5px;"
